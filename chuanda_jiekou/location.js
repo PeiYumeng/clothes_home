@@ -34,12 +34,12 @@ http.createServer((req,res)=>{
     }); 
     var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
     http.get(global.encodeURI(addr), (res) => {
-        console.log(city)
         res.on('data', (data) => {
         resultaaa += data.toString('utf8');
         return resultaaa;
         });
     });
+    console.log(resultaaa)
     res.setHeader("Access-Control-Allow-Origin", "*"); 
     res.end(resultaaa);        
     }
