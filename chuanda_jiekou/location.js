@@ -16,7 +16,7 @@ var city,result='';
  
 
 //创建服务
-http.createServer((req,resa)=>{
+http.createServer((req,res)=>{
     if(req.url==='/weather'){
     //查询数据库数据
     con.query('select * from citys', (err, result) => {
@@ -31,20 +31,21 @@ http.createServer((req,resa)=>{
         else{
             city='石家庄'
         }
-        //获取某市天气
-    
-        var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
-        var huode = http.get(global.encodeURI(addr), (res) => {
-            console.log(city)
-            res.on('data', (data) => {
-            result += data.toString('utf8');
+
+        
+        console.log('????'+result)
+        res.setHeader("Access-Control-Allow-Origin", "*"); 
+        res.end(function(){
+            //获取某市天气
+            var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
+            var huode = http.get(global.encodeURI(addr), (res) => {
+                console.log(city)
+                res.on('data', (data) => {
+                result += data.toString('utf8');
+                return result;
+                });
             });
-        });
-        huode.then(res=>{
-            console.log('????'+result)
-            resa.setHeader("Access-Control-Allow-Origin", "*"); 
-            resa.end(result);
-        })
+        });    
     });  
     }
 }).listen(8080)
