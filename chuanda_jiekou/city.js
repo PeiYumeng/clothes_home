@@ -15,6 +15,7 @@ con.query('select * from citys', (err, result) => {
       process.exit(1);
     }
     console.log(result);
-    console.log(result.title);
+    console.log(result[0]);
+    console.log(result[0].title);
   });
   con.end();
