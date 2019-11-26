@@ -32,20 +32,19 @@ http.createServer((req,res)=>{
             city='石家庄'
         }
     }); 
-    console.log(city)
-        res.setHeader("Access-Control-Allow-Origin", "*"); 
-        res.end(function(){
-            //获取某市天气
-            var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
-            http.get(global.encodeURI(addr), (res) => {
-                console.log(city)
-                res.on('data', (data) => {
-                resultaaa += data.toString('utf8');
-                return resultaaa;
-                });
+    res.setHeader("Access-Control-Allow-Origin", "*"); 
+    res.end(function(){
+        //获取某市天气
+        var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
+        console.log(city)
+        http.get(global.encodeURI(addr), (res) => {
+            console.log(city)
+            res.on('data', (data) => {
+            resultaaa += data.toString('utf8');
+            return resultaaa;
             });
-        });    
-    
+        });
+    });        
     }
 }).listen(8080)
 // con.end();
