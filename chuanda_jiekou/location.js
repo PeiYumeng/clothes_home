@@ -12,14 +12,8 @@ const mysql = require('mysql'),
 con.connect();
 //设置城市
 var city,result='';
-
- 
-
-//创建服务
-http.createServer((req,res)=>{
-    if(req.url==='/weather'){
-    //查询数据库数据
-    con.query('select * from citys', (err, result) => {
+//查询数据库数据
+con.query('select * from citys', (err, result) => {
     if(err) {
       console.error(err.message);
       process.exit(1);
@@ -34,21 +28,22 @@ http.createServer((req,res)=>{
     //获取某市天气
     console.log(city)
     var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
-    fetch(url).then(res=>res.json).then(
-        result = res
-    )
-    // http.get(global.encodeURI(addr), (res) => {
-    //     res.on('data', (data) => {
-    //     result += data.toString('utf8');
-    //     });
-    // });
+    http.get(global.encodeURI(addr), (res) => {
+        res.on('data', (data) => {
+        result += data.toString('utf8');
+        });
+    });
     console.log(result);
   });
-
-
-        console.log(result)
-        res.setHeader("Access-Control-Allow-Origin", "*"); 
-        res.end(result);
+ 
+con.end();
+//创建服务
+http.createServer((req,res)=>{
+    if(req.url==='/weather'){
+        if(city){
+            console.log(result)
+            res.setHeader("Access-Control-Allow-Origin", "*"); 
+            res.end(result);
+        }
     }
 }).listen(8080)
-con.end();
