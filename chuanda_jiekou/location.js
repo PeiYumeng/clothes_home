@@ -34,6 +34,7 @@ http.get(global.encodeURI(addr), (res) => {
 //创建服务
 http.createServer((req,res)=>{
     if(req.url==='/weather'){
+        console.log(result)
         res.setHeader("Access-Control-Allow-Origin", "*"); 
         res.end(result);
     }
