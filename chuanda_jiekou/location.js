@@ -19,8 +19,13 @@ con.query('select * from citys', (err, result) => {
       process.exit(1);
     }
     console.log(result[0].title);
-    if(result[0].title==='chengdu') city='成都'
-    else city='石家庄'
+    if(result[0].title==='chengdu'){
+        city='成都'
+    }
+    else{
+        city='石家庄'
+    }
+    console.log(city)
   });
   con.end();
 //获取某市天气
