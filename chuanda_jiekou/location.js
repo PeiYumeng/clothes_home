@@ -12,33 +12,34 @@ const mysql = require('mysql'),
 con.connect();
 //设置城市
 var city,result='';
-//查询数据库数据
-con.query('select * from citys', (err, result) => {
-    if(err) {
-      console.error(err.message);
-      process.exit(1);
-    }
-    console.log(result[0].title);
-    if(result[0].title==='chengdu'){
-        city='成都'
-    }
-    else{
-        city='石家庄'
-    }
-    //获取某市天气
-    console.log(city)
-    var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
-    // http.get(global.encodeURI(addr), (res) => {
-    //     res.on('data', (data) => {
-    //     result += data.toString('utf8');
-    //     });
-    // });
-    // console.log(result);
-  });
+
  
-con.end();
+
 //创建服务
 http.createServer((req,res)=>{
+    //查询数据库数据
+    con.query('select * from citys', (err, result) => {
+        if(err) {
+        console.error(err.message);
+        process.exit(1);
+        }
+        console.log(result[0].title);
+        if(result[0].title==='chengdu'){
+            city='成都'
+        }
+        else{
+            city='石家庄'
+        }
+        //获取某市天气
+        console.log(city)
+        var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
+        http.get(global.encodeURI(addr), (res) => {
+            res.on('data', (data) => {
+            result += data.toString('utf8');
+            });
+        });
+        console.log(result);
+    });
     if(req.url==='/weather'){
         if(city){
             console.log('????'+result)
@@ -47,3 +48,4 @@ http.createServer((req,res)=>{
         }
     }
 }).listen(8080)
+con.end();
