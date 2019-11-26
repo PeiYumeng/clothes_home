@@ -25,6 +25,7 @@ con.query('select * from citys', (err, result) => {
     else{
         city='石家庄'
     }
+  },function(){
     //获取某市天气
     console.log(city)
     var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
@@ -34,9 +35,7 @@ con.query('select * from citys', (err, result) => {
         });
     });
   });
-  con.end();
-
-
+con.end();
 //创建服务
 http.createServer((req,res)=>{
     if(req.url==='/weather'){
