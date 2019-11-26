@@ -11,7 +11,7 @@ const mysql = require('mysql'),
       });
 con.connect();
 //设置城市
-var city,result='';
+var city,resultaaa='';
 
  
 
@@ -41,8 +41,8 @@ http.createServer((req,res)=>{
             var huode = http.get(global.encodeURI(addr), (res) => {
                 console.log(city)
                 res.on('data', (data) => {
-                result += data.toString('utf8');
-                return result;
+                resultaaa += data.toString('utf8');
+                return resultaaa;
                 });
             });
         });    
