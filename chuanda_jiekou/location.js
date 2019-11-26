@@ -39,13 +39,14 @@ http.createServer((req,res)=>{
             res.on('data', (data) => {
             result += data.toString('utf8');
             console.log(result)
+            res.setHeader("Access-Control-Allow-Origin", "*"); 
+            res.end(result);
             });
         });
         console.log(result);
     },function(){
         console.log('????'+result)
-        res.setHeader("Access-Control-Allow-Origin", "*"); 
-        res.end(result);
+
     });  
     }
 }).listen(8080)
