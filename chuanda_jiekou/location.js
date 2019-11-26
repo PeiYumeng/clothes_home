@@ -17,6 +17,7 @@ var city,result='';
 
 //创建服务
 http.createServer((req,res)=>{
+    if(req.url==='/weather'){
     //查询数据库数据
     con.query('select * from citys', (err, result) => {
         if(err) {
@@ -41,13 +42,11 @@ http.createServer((req,res)=>{
             });
         });
         console.log(result);
-    });
-    if(req.url==='/weather'){
-        if(city){
-            console.log('????'+result)
-            res.setHeader("Access-Control-Allow-Origin", "*"); 
-            res.end(result);
-        }
+    },function(){
+        console.log('????'+result)
+        res.setHeader("Access-Control-Allow-Origin", "*"); 
+        res.end(result);
+    });  
     }
 }).listen(8080)
 // con.end();
