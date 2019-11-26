@@ -31,9 +31,10 @@ http.createServer((req,res)=>{
             city='石家庄'
         }
         //获取某市天气
-        console.log(city)
+    
         var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
         http.get(global.encodeURI(addr), (res) => {
+            console.log(city)
             res.on('data', (data) => {
             result += data.toString('utf8');
             });
