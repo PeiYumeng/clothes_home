@@ -33,15 +33,16 @@ http.createServer((req,res)=>{
         }
     }); 
     var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
-    http.get(global.encodeURI(addr), (res) => {
+    function a(){http.get(global.encodeURI(addr), (res) => {
         res.on('data', (data) => {
         resultaaa += data.toString('utf8');
+        console.log(resultaaa)
         return resultaaa;
         });
-    });
+    })}
     console.log(resultaaa)
     res.setHeader("Access-Control-Allow-Origin", "*"); 
-    res.end(resultaaa);        
+    res.end(a());        
     }
 }).listen(8080)
 // con.end();
