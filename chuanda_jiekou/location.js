@@ -41,7 +41,7 @@ con.end();
 http.createServer((req,res)=>{
     if(req.url==='/weather'){
         if(city){
-            console.log(result)
+            console.log('????'+result)
             res.setHeader("Access-Control-Allow-Origin", "*"); 
             res.end(result);
         }
