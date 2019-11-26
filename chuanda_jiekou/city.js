@@ -1,5 +1,5 @@
 #!/usr/bin/node
-
+//连接
 const mysql = require('mysql'),
       con   = mysql.createConnection({
         host: 'localhost',
@@ -8,11 +8,13 @@ const mysql = require('mysql'),
         database: 'test'
       });
 con.connect();
-con.query('select * from city', (err, result) => {
+//查询
+con.query('select * from citys', (err, result) => {
     if(err) {
       console.error(err.message);
       process.exit(1);
     }
     console.log(result);
+    console.log(result.title);
   });
   con.end();
