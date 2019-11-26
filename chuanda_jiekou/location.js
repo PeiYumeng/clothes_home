@@ -36,11 +36,9 @@ http.createServer((req,res)=>{
     function a(){http.get(global.encodeURI(addr), (res) => {
         res.on('data', (data) => {
         resultaaa += data.toString('utf8');
-        console.log(resultaaa)
         return resultaaa;
         });
     })}
-    console.log(resultaaa)
     res.setHeader("Access-Control-Allow-Origin", "*"); 
     res.end(a());        
     }
