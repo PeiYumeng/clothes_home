@@ -37,6 +37,7 @@ http.createServer((req,res)=>{
             console.log(city)
             res.on('data', (data) => {
             result += data.toString('utf8');
+            console.log(data)
             });
         });
         console.log(result);
