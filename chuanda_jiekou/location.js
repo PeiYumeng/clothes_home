@@ -31,13 +31,14 @@ con.query('select * from citys', (err, result) => {
         result += data.toString('utf8');
     });
     })
+    //创建服务
+    http.createServer((req,res)=>{
+        if(req.url==='/weather'){
+            res.setHeader("Access-Control-Allow-Origin", "*"); 
+            res.end(result);        
+        }
+    }).listen(8080)
 }); 
 
-//创建服务
-http.createServer((req,res)=>{
-    if(req.url==='/weather'){
-        res.setHeader("Access-Control-Allow-Origin", "*"); 
-        res.end(result);        
-    }
-}).listen(8080)
+
 // con.end();
