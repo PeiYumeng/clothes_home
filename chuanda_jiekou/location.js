@@ -28,9 +28,10 @@ con.query('select * from citys', (err, result) => {
     var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=8a243fddebdd1ff372d8cd0678862674';
     http.get(global.encodeURI(addr), (res) => {
         res.on('data', (data) => {
-        result += data.toString('utf8');
-    });
+            result += data.toString('utf8');
+        });
     })
+    console.log(result);
     //创建服务
     http.createServer((req,res)=>{
         if(req.url==='/weather'){
