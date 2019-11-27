@@ -30,7 +30,6 @@ var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67
 http.get(global.encodeURI(addr), (res) => {
     res.on('data', (data) => {
     result += data.toString('utf8');
-    return result;
    });
 })
 //创建服务
