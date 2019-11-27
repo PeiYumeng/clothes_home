@@ -10,21 +10,6 @@ const mysql = require('mysql'),
         database: 'test'
       });
 con.connect();
-//获得经纬度
-// var lon,lat;
-// if(navigator.geolocation){
-//     navigator.geolocation.getCurrentPosition(showPosition,errorPosition);
-// }
-// else{
-//     document.write("您的浏览器不支持浏览器地理位置定位");
-// }
-// function showPosition(data){
-//     lon=data.coords.longitude;
-//     lat = data.coords.latitude;
-// }
-// function errorPosition(err){
-//     document.write("错误");
-// }
 //设置城市
 var city='石家庄',result='';
 //查询数据库数据
@@ -33,7 +18,6 @@ con.query('select * from citys', (err, result) => {
         console.error(err.message);
         process.exit(1);
     }
-    console.log(result[0].title);
     if(result[0].title==='chengdu'){
         city='成都'
     }
@@ -41,6 +25,7 @@ con.query('select * from citys', (err, result) => {
         city='石家庄'
     }
 }); 
+console.log(city)
 var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=8a243fddebdd1ff372d8cd0678862674';
 http.get(global.encodeURI(addr), (res) => {
     res.on('data', (data) => {
