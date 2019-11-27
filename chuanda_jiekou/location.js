@@ -13,31 +13,68 @@ con.connect();
 //设置城市
 var city='石家庄',resultaaa='';
 //查询数据库数据
-con.query('select * from citys', (err, result) => {
-    if(err) {
-        console.error(err.message);
-        process.exit(1);
-    }
-    if(result[0].title==='chengdu'){
-        city='成都'
-    }
-    else{
-        city='石家庄'
-    }
-    console.log(city)
-    var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=8a243fddebdd1ff372d8cd0678862674';
-}); 
-con.end();
-http.get(global.encodeURI(addr), (res) => {
-    res.on('data', (data) => {
-        resultaaa += data.toString('utf8');
-    });
-    console.log(resultaaa);
-    //创建服务
-    http.createServer((req,res)=>{ 
-        if(req.url==='/weather'){
-            res.setHeader("Access-Control-Allow-Origin", "*"); 
-            res.end(resultaaa);        
+// con.query('select * from citys', (err, result) => {
+//     if(err) {
+//         console.error(err.message);
+//         process.exit(1);
+//     }
+//     if(result[0].title==='chengdu'){
+//         city='成都'
+//     }
+//     else{
+//         city='石家庄'
+//     }
+//     console.log(city)
+//     var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=8a243fddebdd1ff372d8cd0678862674';
+// }); 
+// con.end();
+
+// http.get(global.encodeURI(addr), (res) => {
+//     res.on('data', (data) => {
+//         resultaaa += data.toString('utf8');
+//     });
+//     console.log(resultaaa);
+//     //创建服务
+//     http.createServer((req,res)=>{ 
+//         if(req.url==='/weather'){
+//             res.setHeader("Access-Control-Allow-Origin", "*"); 
+//             res.end(resultaaa);        
+//         }
+//     }).listen(8080)
+// })
+
+
+
+
+let promise = new Promise(resolve =>{
+    //查询数据库数据获得用户城市
+    con.query('select * from citys', (err, result) => {
+        if(result[0].title==='chengdu'){
+            resolve(city='成都')
         }
-    }).listen(8080)
+        else{
+           resolve(city='石家庄');
+        }
+    }); 
 })
+    .then(value =>{
+        console.log(value);
+        return new Promise(resolve =>{
+            var addr = 'http://v.juhe.cn/weather/index?cityname=' + value + '&key=8a243fddebdd1ff372d8cd0678862674';
+            http.get(global.encodeURI(addr), (res) => {
+                res.on('data', (data) => {
+                    resolve(resultaaa += data.toString('utf8'))
+                });
+            })
+        })
+    })
+    .then(value =>{
+            //创建服务
+            console.log(value)
+            http.createServer((req,res)=>{ 
+                if(req.url==='/weather'){
+                    res.setHeader("Access-Control-Allow-Origin", "*"); 
+                    res.end(value);        
+                }
+            }).listen(8080)
+    })
