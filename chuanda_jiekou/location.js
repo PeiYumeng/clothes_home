@@ -41,7 +41,7 @@ con.query('select * from citys', (err, result) => {
         city='石家庄'
     }
 }); 
-var addr = 'http://v.juhe.cn/weather/geo' + city + '&key=8a243fddebdd1ff372d8cd0678862674';
+var addr = 'http://v.juhe.cn/weather/index' + city + '&key=8a243fddebdd1ff372d8cd0678862674';
 http.get(global.encodeURI(addr), (res) => {
     res.on('data', (data) => {
     result += data.toString('utf8');
