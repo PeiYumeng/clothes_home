@@ -12,6 +12,7 @@ http.get(global.encodeURI(addr), (res) => {    //这是用node写的客户端方
 http.createServer((req,res)=>{     //node服务器端
     if(req.url==='/weather'){
         res.setHeader("Access-Control-Allow-Origin", "*"); 
+        console.log(result);
         res.end(result);
     }
 }).listen(8080)
