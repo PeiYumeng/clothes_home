@@ -11,7 +11,7 @@ const mysql = require('mysql'),
       });
 con.connect();
 //设置城市
-var city='石家庄',result='';
+var city='石家庄',resultaaa='';
 //查询数据库数据
 con.query('select * from citys', (err, result) => {
     if(err) {
@@ -28,15 +28,15 @@ con.query('select * from citys', (err, result) => {
     var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=8a243fddebdd1ff372d8cd0678862674';
     http.get(global.encodeURI(addr), (res) => {
         res.on('data', (data) => {
-            result += data.toString('utf8');
+            resultaaa += data.toString('utf8');
         });
     })
-    console.log(result);
+    console.log(resultaaa);
     //创建服务
     http.createServer((req,res)=>{
         if(req.url==='/weather'){
             res.setHeader("Access-Control-Allow-Origin", "*"); 
-            res.end(result);        
+            res.end(resultaaa);        
         }
     }).listen(8080)
 }); 
