@@ -26,21 +26,18 @@ con.query('select * from citys', (err, result) => {
     }
     console.log(city)
     var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=8a243fddebdd1ff372d8cd0678862674';
-    http.get(global.encodeURI(addr), (res) => {
-        res.on('data', (data) => {
-            resultaaa += data.toString('utf8');
-        });
-        console.log(resultaaa);
-        //创建服务
-        http.createServer((req,res)=>{
-            if(req.url==='/weather'){
-                res.setHeader("Access-Control-Allow-Origin", "*"); 
-                res.end(resultaaa);        
-            }
-        }).listen(8080)
-    })
-
 }); 
-
-
-// con.end();
+con.end();
+http.get(global.encodeURI(addr), (res) => {
+    res.on('data', (data) => {
+        resultaaa += data.toString('utf8');
+    });
+    console.log(resultaaa);
+    //创建服务
+    http.createServer((req,res)=>{ 
+        if(req.url==='/weather'){
+            res.setHeader("Access-Control-Allow-Origin", "*"); 
+            res.end(resultaaa);        
+        }
+    }).listen(8080)
+})
