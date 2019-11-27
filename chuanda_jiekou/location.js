@@ -26,6 +26,7 @@ con.query('select * from citys', (err, result) => {
         city='石家庄'
     }
 }); 
+var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
 http.get(global.encodeURI(addr), (res) => {
     res.on('data', (data) => {
     result += data.toString('utf8');
@@ -35,7 +36,6 @@ http.get(global.encodeURI(addr), (res) => {
 //创建服务
 http.createServer((req,res)=>{
     if(req.url==='/weather'){
-        var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
         res.setHeader("Access-Control-Allow-Origin", "*"); 
         res.end(result);        
     }
