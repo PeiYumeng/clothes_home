@@ -11,22 +11,19 @@ const mysql = require('mysql'),
       });
 con.connect();
 //获得经纬度
-// if(navigator.geolocation){
-//     navigator.geolocation.getCurrentPosition(showPosition,errorPosition);
-// }
-// else{
-//     document.write("您的浏览器不支持浏览器地理位置定位");
-// }
-// function showPosition(data){
-//     getE("lon").innerHTML=("经度："+data.coords.longitude);
-//     getE("lat").innerHTML=("纬度："+data.coords.latitude);
-//     getE("accuracy").innerHTML=("精确度："+data.coords.accuracy+"米");
-// }
-// function errorPosition(err){
-//     document.write("错误");
-// }
+var lon,lat;
 if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition();
+    navigator.geolocation.getCurrentPosition(showPosition,errorPosition);
+}
+else{
+    document.write("您的浏览器不支持浏览器地理位置定位");
+}
+function showPosition(data){
+    lon=data.coords.longitude;
+    lat = data.coords.latitude;
+}
+function errorPosition(err){
+    document.write("错误");
 }
 //设置城市
 var city='石家庄',result='';
@@ -44,7 +41,7 @@ con.query('select * from citys', (err, result) => {
         city='石家庄'
     }
 }); 
-var addr = 'http://v.juhe.cn/weather/geo' + data.coords.longitude +data.coords.latitude+ '&key=8a243fddebdd1ff372d8cd0678862674';
+var addr = 'http://v.juhe.cn/weather/geo' + lon+lat+ '&key=8a243fddebdd1ff372d8cd0678862674';
 http.get(global.encodeURI(addr), (res) => {
     res.on('data', (data) => {
     result += data.toString('utf8');
