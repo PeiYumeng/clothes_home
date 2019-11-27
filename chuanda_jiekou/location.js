@@ -12,20 +12,20 @@ const mysql = require('mysql'),
 con.connect();
 //设置城市
 var city='石家庄',result='';
-    //查询数据库数据
-con.query('select * from citys', (err, result) => {
-    if(err) {
-        console.error(err.message);
-        process.exit(1);
-    }
-    console.log(result[0].title);
-    if(result[0].title==='chengdu'){
-        city='成都'
-    }
-    else{
-        city='石家庄'
-    }
-}); 
+//查询数据库数据
+// con.query('select * from citys', (err, result) => {
+//     if(err) {
+//         console.error(err.message);
+//         process.exit(1);
+//     }
+//     console.log(result[0].title);
+//     if(result[0].title==='chengdu'){
+//         city='成都'
+//     }
+//     else{
+//         city='石家庄'
+//     }
+// }); 
 var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
 http.get(global.encodeURI(addr), (res) => {
     res.on('data', (data) => {
