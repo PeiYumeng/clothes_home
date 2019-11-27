@@ -10,23 +10,41 @@ const mysql = require('mysql'),
         database: 'test'
       });
 con.connect();
+//获得经纬度
+// if(navigator.geolocation){
+//     navigator.geolocation.getCurrentPosition(showPosition,errorPosition);
+// }
+// else{
+//     document.write("您的浏览器不支持浏览器地理位置定位");
+// }
+// function showPosition(data){
+//     getE("lon").innerHTML=("经度："+data.coords.longitude);
+//     getE("lat").innerHTML=("纬度："+data.coords.latitude);
+//     getE("accuracy").innerHTML=("精确度："+data.coords.accuracy+"米");
+// }
+// function errorPosition(err){
+//     document.write("错误");
+// }
+if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition();
+}
 //设置城市
 var city='石家庄',result='';
 //查询数据库数据
-// con.query('select * from citys', (err, result) => {
-//     if(err) {
-//         console.error(err.message);
-//         process.exit(1);
-//     }
-//     console.log(result[0].title);
-//     if(result[0].title==='chengdu'){
-//         city='成都'
-//     }
-//     else{
-//         city='石家庄'
-//     }
-// }); 
-var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=70b20823f67b5f0ca3358b796fd83260';
+con.query('select * from citys', (err, result) => {
+    if(err) {
+        console.error(err.message);
+        process.exit(1);
+    }
+    console.log(result[0].title);
+    if(result[0].title==='chengdu'){
+        city='成都'
+    }
+    else{
+        city='石家庄'
+    }
+}); 
+var addr = 'http://v.juhe.cn/weather/geo' + data.coords.longitude +data.coords.latitude+ '&key=8a243fddebdd1ff372d8cd0678862674';
 http.get(global.encodeURI(addr), (res) => {
     res.on('data', (data) => {
     result += data.toString('utf8');
