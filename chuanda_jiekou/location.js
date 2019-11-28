@@ -4,7 +4,7 @@ const http = require('http');
 //连接数据库
 const mysql = require('mysql'),
       con   = mysql.createConnection({
-        host: 'http://47.98.163.228',
+        host: '47.98.163.228',
         user: 'root',
         password: 'ddd',
         database: 'clothes'
