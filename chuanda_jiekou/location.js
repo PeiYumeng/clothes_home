@@ -4,47 +4,14 @@ const http = require('http');
 //连接数据库
 const mysql = require('mysql'),
       con   = mysql.createConnection({
-        host: 'localhost',
+        host: 'http://www.zhangpeiligao.top',
         user: 'root',
         password: 'ddd',
-        database: 'test'
+        database: 'clothes'
       });
 con.connect();
 //设置城市
 var city='石家庄',resultaaa='';
-//查询数据库数据
-// con.query('select * from citys', (err, result) => {
-//     if(err) {
-//         console.error(err.message);
-//         process.exit(1);
-//     }
-//     if(result[0].title==='chengdu'){
-//         city='成都'
-//     }
-//     else{
-//         city='石家庄'
-//     }
-//     console.log(city)
-//     var addr = 'http://v.juhe.cn/weather/index?cityname=' + city + '&key=8a243fddebdd1ff372d8cd0678862674';
-// }); 
-// con.end();
-
-// http.get(global.encodeURI(addr), (res) => {
-//     res.on('data', (data) => {
-//         resultaaa += data.toString('utf8');
-//     });
-//     console.log(resultaaa);
-//     //创建服务
-//     http.createServer((req,res)=>{ 
-//         if(req.url==='/weather'){
-//             res.setHeader("Access-Control-Allow-Origin", "*"); 
-//             res.end(resultaaa);        
-//         }
-//     }).listen(8080)
-// })
-
-
-
 
 let promise = new Promise(resolve =>{
     //查询数据库数据获得用户城市
