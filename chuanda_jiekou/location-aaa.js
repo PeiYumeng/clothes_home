@@ -70,12 +70,13 @@ server.on('request',(req,res)=>{
                         res.end(JSON.stringify(unique(value)));
                     }
                     if(req.url==='/pp'){
-                        res.setHeader("Access-Control-Allow-Origin", "*");
                         var obj="";
                         req.on('data',function(data){
                             obj+=data;
                             console.log('接收：'+data)
                         })
+                        res.setHeader("Access-Control-Allow-Credentials",true)
+                        res.setHeader("Access-Control-Allow-Origin", "*");
                         res.end();
                     }
         })
